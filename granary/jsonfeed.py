@@ -54,6 +54,13 @@ def activities_to_jsonfeed(activities, actor=None, title=None, feed_url=None,
     author = obj.get('author', {})
 
     content = obj.get('content')
+    # The JSON Feed spec (https://jsonfeed.org/version/1#items) says that the
+    # URL from the "image" property may also appear in "content_html", in which
+    # case it should be interpreted as the "main, featured image" of the
+    # post. It does not specify the behavior or semantics in the case that the
+    # image does *not* appear in "content_html", but currently at least one
+    # feed reader (Feedbin) will not display the image as part of the post
+    # content unless it is explicitly included in "content_html".
     if image_url(obj):
       content += '<p><img src="{}"/></p>'.format(image_url(obj))
 
