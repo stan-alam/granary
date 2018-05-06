@@ -52,7 +52,11 @@ def activities_to_jsonfeed(activities, actor=None, title=None, feed_url=None,
     if obj.get('objectType') == 'person':
       continue
     author = obj.get('author', {})
+
     content = obj.get('content')
+    if image_url(obj):
+      content += '<p><img src="{}"/></p>'.format(image_url(obj))
+
     obj_title = obj.get('title') or obj.get('displayName')
     item = {
       'id': obj.get('id') or obj.get('url'),
