@@ -61,7 +61,7 @@ def activities_to_jsonfeed(activities, actor=None, title=None, feed_url=None,
     # image does *not* appear in "content_html", but currently at least one
     # feed reader (Feedbin) will not display the image as part of the post
     # content unless it is explicitly included in "content_html".
-    if image_url(obj):
+    if content and image_url(obj):
       content += '<p><img src="{}"/></p>'.format(image_url(obj))
 
     obj_title = obj.get('title') or obj.get('displayName')
